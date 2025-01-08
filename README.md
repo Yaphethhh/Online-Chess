@@ -59,7 +59,3 @@ This project implements a fully functional online chess system, combining a C-ba
 
    - Each move is recorded in the SQLite database for persistence.
    - Players can review past games by querying the database through the review\.html page.
-
-##
-
-##
