@@ -1,82 +1,65 @@
-# chessboard.js
+# README: Online Chess Project
 
-chessboard.js is a JavaScript chessboard component. It depends on [jQuery].
+## Overview
 
-Please see [chessboardjs.com] for documentation and examples.
+This project implements a fully functional online chess system, combining a C-based backend for game logic with a Python-driven web server for real-time interaction. The system includes a web-based user interface for playing chess, reviewing games, and managing game states. It is built using a mix of technologies, including C, Python, SQLite, SWIG, JavaScript, and HTML/CSS.
 
-## What is chessboard.js?
+## Key Features
 
-chessboard.js is a JavaScript chessboard component with a flexible "just a
-board" API that
+1. **Backend Logic (C)**
 
-chessboard.js is a standalone JavaScript Chess Board. It is designed to be "just
-a board" and expose a powerful API so that it can be used in different ways.
-Here's a non-exhaustive list of things you can do with chessboard.js:
+   - Chess rules and game logic are implemented in C.
+   - The backend ensures accurate move validation and game state management.
 
-- Use chessboard.js to show game positions alongside your expert commentary.
-- Use chessboard.js to have a tactics website where users have to guess the best
-  move.
-- Integrate chessboard.js and [chess.js] with a PGN database and allow people to
-  search and playback games (see [Example 5000])
-- Build a chess server and have users play their games out using the
-  chessboard.js board.
+2. **Python Web Server**
 
-chessboard.js is flexible enough to handle any of these situations with relative
-ease.
+   - A Python-based web server facilitates real-time communication between players.
+   - Utilizes SWIG (Simplified Wrapper and Interface Generator) to load the C backend as a shared module.
 
-## What can chessboard.js **not** do?
+3. **Web Interface**
 
-The scope of chessboard.js is limited to "just a board." This is intentional and
-makes chessboard.js flexible for handling a multitude of chess-related problems.
+   - Created with HTML, CSS, and JavaScript (using chessboard.js) to provide a responsive user interface.
+   - Supports real-time gameplay for both white and black players, including game-over detection and time-based move tracking.
 
-This is a common source of confusion for new users. [remove?]
+4. **Game History and Review**
 
-Specifically, chessboard.js does not understand anything about how the game of
-chess is played: how a knight moves, who's turn is it, is White in check?, etc.
+   - Game states, moves, and results are stored in an SQLite database.
+   - Users can review previous matches via a dedicated web page.
 
-Fortunately, the powerful [chess.js] library deals with exactly this sort of
-problem domain and plays nicely with chessboard.js's flexible API. Some examples
-of chessboard.js combined with chess.js: 5000, 5001, 5002
+## File Structure
 
-Please see the powerful [chess.js] library for an API to deal with these sorts
-of questions.
+- `hclib.c`: Contains the core game logic and move validation for chess.
+- `hclib.i`: SWIG interface file to generate Python bindings for the C backend.
+- `server.py`: Python script implementing the web server and handling player interactions.
+- `index.html`: Main web page for the chessboard and gameplay interface.
+- `chessboard.css`: CSS file for styling the web interface.
+- `chessboard.js`: JavaScript library for rendering the chessboard and managing piece movement.
+- `hostage_chess.db`: SQLite database to store game data.
+- `history.html`: Web page for reviewing past games.
 
+## How It Works
 
-This logic is distinct from the logic of the board. Please see the powerful
-[chess.js] library for this aspect of your application.
+1. **Backend Logic**
 
+   - The C backend processes each move to ensure it follows the rules of chess.
+   - It manages the game state, including turn tracking, piece positions, and game-over conditions.
 
+2. **Python Web Server**
 
-Here is a list of things that chessboard.js is **not**:
+   - Python acts as the bridge between the C backend and the web interface.
+   - SWIG is used to generate bindings, allowing Python to call C functions directly.
+   - Handles HTTP requests and serves the web interface to players.
 
-- A chess engine
-- A legal move validator
-- A PGN parser
+3. **Web Interface**
 
-chessboard.js is designed to work well with any of those things, but the idea
-behind chessboard.js is that the logic that controls the board should be
-independent of those other problems.
+   - The chessboard is rendered using chessboard.js.
+   - Players interact with the board to make moves, which are sent to the Python server for validation via the C backend.
 
-## Docs and Examples
+4. **Database Integration**
 
-- Docs - <http://chessboardjs.com/docs>
-- Examples - <http://chessboardjs.com/examples>
+   - Each move is recorded in the SQLite database for persistence.
+   - Players can review past games by querying the database through the review\.html page.
 
-## Developer Tools
+##
 
-```sh
-# create a build in the build/ directory
-npm run build
-
-# re-build the website
-npm run website
-```
-
-## License
-
-[MIT License](LICENSE.md)
-
-[jQuery]:https://jquery.com/
-[chessboardjs.com]:http://chessboardjs.com
-[chess.js]:https://github.com/jhlywa/chess.js
-[Example 5000]:http://chessboardjs.com/examples#5000
+##
